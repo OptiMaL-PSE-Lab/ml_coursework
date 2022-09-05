@@ -1,24 +1,18 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.interpolate import interp1d
+
+def sin_line(x, b, a, c,off):
+    return b + (a * np.sin(c * (x-off)))
 
 
-def sin_line(x, b, a, c):
-    return b + (a * np.sin(c * x))
 
 
-def add_start_and_end(x, y):
-    s = y[0]
-    e = y[-1]
-    x = [x[0] - 0.5] + list(x)
-    x = list(x) + [x[-1] + 0.6]
-    y = [y[0]] + list(y) + [y[-1]]
-    return x, y
 
+def build_arrays(p1, p2, p3):
 
-def build_arrays(p1, p2):
-
-    x = np.linspace(0, 4.4, 180)
-    # p1 = 0.25 # 0.1 <-> 0.6
+    x = np.linspace(0, 6, 180)
+    # p1 = 0.25 # 0.1 <-> 0.4
     # p2 = 5    # 3 <-> 6
 
     if p1 > 0.70:
@@ -40,18 +34,85 @@ def build_arrays(p1, p2):
         print("--- You have entered an invalid geometry ---")
         print("The value of p2 is too high (", p2, "> 6 )")
         return
+    
+    if p3 < 0:
+        print("--- You have entered an invalid geometry ---")
+        print("The value of p3 is too low (", p3, "< 0 )")
+        return 
 
-    y1 = sin_line(x, 0.5, p1, p2)
-    y2 = sin_line(x, 0.0, 0.25, p2)
+    if p3 > np.pi/2:
+        print("--- You have entered an invalid geometry ---")
+        print("The value of p3 is too high (", p3, "> pi/2 )")
+        return 
 
-    x1, y1 = add_start_and_end(x, y1)
-    x2, y2 = add_start_and_end(x, y2)
+    y1 = sin_line(x, 0.5, p1, p2,p3)
+    y2 = sin_line(x, 0.0, 0.25, p2,p3)
+
+    x1 = x 
+    x2 = x
+    n_add = 9
+    add_start_x = list(np.linspace(x1[0]-0.5,x1[0],n_add,endpoint=False))
+    add_end_x = list(np.flip(np.linspace(x1[-1]+0.5,x1[-1],n_add,endpoint=False)))
+
+    y1 = np.append(np.append([y1[0] for i in range(n_add)],y1),[y1[-1] for i in range(n_add)])
+    y2 = np.append(np.append([y2[0] for i in range(n_add)],y2),[y2[-1] for i in range(n_add)])
+
+    x1 = np.append(np.append(add_start_x,x1),add_end_x)
+    x2 = np.append(np.append(add_start_x,x2),add_end_x)
+
+
+
+
+    x_p = [x1[int(n_add/2)],x1[n_add],x1[n_add+int(n_add/2)]]
+    y_mid_new = (y1[int(n_add/2)] + y1[n_add+int(n_add/2)])/2
+    y_p = [y1[int(n_add/2)],y_mid_new,y1[n_add+int(n_add/2)]]
+    
+    x_new = np.linspace(x1[int(n_add/2)],x1[n_add+int(n_add/2)],n_add)
+    y_new = interp1d(x_p,y_p,kind='quadratic')(x_new)
+
+    x1[int(n_add/2):n_add+int(n_add/2)] = x_new
+    y1[int(n_add/2):n_add+int(n_add/2)] = y_new
+
+    x_p = [x2[int(n_add/2)],x2[n_add],x2[n_add+int(n_add/2)]]
+    y_mid_new = (y2[int(n_add/2)] + y2[n_add+int(n_add/2)])/2
+    y_p = [y2[int(n_add/2)],y_mid_new,y2[n_add+int(n_add/2)]]
+    x_new = np.linspace(x2[int(n_add/2)],x2[n_add+int(n_add/2)],n_add) 
+    y_new = interp1d(x_p,y_p,kind='quadratic')(x_new)
+
+    x2[int(n_add/2):n_add+int(n_add/2)] = x_new
+    y2[int(n_add/2):n_add+int(n_add/2)] = y_new
+
+
+
+
+    x_p = [x1[n_add+180-int(n_add/2)],x1[n_add+180],x1[n_add+180+int(n_add/2)]]
+    y_mid_new = (y1[n_add+180-int(n_add/2)] + 2*y1[n_add+180+int(n_add/2)])/3
+    y_p = [y1[n_add+180-int(n_add/2)],y_mid_new,y1[n_add+180+int(n_add/2)]]
+    
+    x_new = np.linspace(x1[n_add+180-int(n_add/2)],x1[n_add+180+int(n_add/2)],n_add-1)
+    y_new = interp1d(x_p,y_p,kind='quadratic')(x_new)
+
+    x1[n_add+180-int(n_add/2):n_add+180+int(n_add/2)] = x_new
+    y1[n_add+180-int(n_add/2):n_add+180+int(n_add/2)] = y_new
+
+    x_p = [x2[n_add+180-int(n_add/2)],x2[n_add+180],x2[n_add+180+int(n_add/2)]]
+    y_mid_new = (y2[n_add+180-int(n_add/2)] + 2*y2[n_add+180+int(n_add/2)])/3
+    y_p = [y2[n_add+180-int(n_add/2)],y_mid_new,y2[n_add+180+int(n_add/2)]]
+    
+    x_new = np.linspace(x2[n_add+180-int(n_add/2)],x2[n_add+180+int(n_add/2)],n_add-1)
+    y_new = interp1d(x_p,y_p,kind='quadratic')(x_new)
+
+    x2[n_add+180-int(n_add/2):n_add+180+int(n_add/2)] = x_new
+    y2[n_add+180-int(n_add/2):n_add+180+int(n_add/2)] = y_new 
+    
 
     plt.figure()
     plt.plot(x1, y1, c="k")
     plt.plot(x2, y2, c="k")
+    plt.xlim(min(x1),max(x2))
+    plt.ylim(-0.5,max(x2))
     plt.grid()
-    plt.savefig("mesh.png")
+    plt.savefig("outputs/mesh.png")
 
     l11 = [
         """(\t""" + str(x1[i]) + "\t" + str(y1[i]) + """\t0\t)"""
@@ -74,8 +135,8 @@ def build_arrays(p1, p2):
     return l11, l12, l21, l22
 
 
-def build_mesh(p1, p2):
-    l11, l12, l21, l22 = build_arrays(p1, p2)
+def build_mesh(p1, p2,p3):
+    l11, l12, l21, l22 = build_arrays(p1, p2,p3)
     f = open("mesh_construction/blockMeshDict_ref", "rb")
 
     lines = f.readlines()
@@ -108,5 +169,6 @@ def build_mesh(p1, p2):
             f.write("%s\n" % item)
     return
 
-
-build_mesh(0.25, 5)
+# p1 = 0.25 # 0.1 <-> 0.4
+    # p2 = 5    # 3 <-> 6
+build_mesh(0.4, 5,0.0)
