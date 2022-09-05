@@ -1,6 +1,4 @@
 FROM opencfd/openfoam2106-default:latest
-RUN python3 -m pip install --no-cache-dir notebook jupyterlab PyFoam
-
 ARG NB_USER=coursework_user
 ARG NB_UID=1000
 ENV USER ${NB_USER}
@@ -15,6 +13,9 @@ COPY . ${HOME}
 USER root
 RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
+RUN apt-get update && apt-get install -y python3.6 python3-distutils python3-pip python3-apt
+RUN python3 -m pip install --no-cache-dir notebook jupyterlab PyFoam
+
 RUN mkdir -p $FOAM_RUN
 RUN cd "$HOME/OpenFOAM/$USER-$WM_PROJECT_VERSION"
 RUN wget "https://github.com/Unofficial-Extend-Project-Mirror/openfoam-extend-swak4Foam-dev/archive/branches/develop.tar.gz" -O swak4Foam.tar.gz
