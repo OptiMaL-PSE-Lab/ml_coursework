@@ -1,4 +1,4 @@
-FROM opencfd/openfoam2012-default:latest
+FROM opencfd/openfoam2106-default:latest
 RUN python3 -m pip install --no-cache-dir notebook jupyterlab PyFoam
 
 ARG NB_USER=coursework_user
