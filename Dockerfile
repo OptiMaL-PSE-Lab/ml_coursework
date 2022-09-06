@@ -1,8 +1,4 @@
 FROM opencfd/openfoam2106-default:latest
-RUN apt-get update && \
-      apt-get -y install sudo
-RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
-USER docker
 COPY . ${HOME}
 RUN apt-get update && apt-get install -y python3.6 python3-distutils python3-pip python3-apt
 RUN python3 -m pip install --no-cache-dir notebook jupyterlab PyFoam
