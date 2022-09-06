@@ -6,6 +6,6 @@ RUN python3 -m pip install --no-cache-dir notebook jupyterlab PyFoam
 RUN wget "https://github.com/Unofficial-Extend-Project-Mirror/openfoam-extend-swak4Foam-dev/archive/branches/develop.tar.gz" -O swak4Foam.tar.gz
 RUN tar -xf swak4Foam.tar.gz
 RUN mv openfoam-extend-swak4Foam-dev-branches-develop swak4Foam
-RUN chown -R swak4Foam
+RUN chown -R root swak4Foam
 RUN cd swak4Foam
 RUN ./AllwmakeAll
