@@ -131,8 +131,8 @@ functions
       log             true;
       executeControl  timeStep;
       executeInterval 1;
-      writeControl    timeStep;
-      writeInterval   10;
+      outputControl    timeStep;
+      outputInterval   10;
    }
 	velocity1
    {
