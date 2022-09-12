@@ -37,7 +37,7 @@ solvers
         solver          PBiCGStab;
         preconditioner  DILU;
         tolerance       1e-05;
-        relTol          0.1;
+        relTol          0.05;
     }
 
     UFinal
@@ -60,7 +60,7 @@ PIMPLE
 {
     pRefCell  0;
 	pRefValue 0;
-    nNonOrthogonalCorrectors 2;
+    nNonOrthogonalCorrectors 3;
 	nOuterCorrectors         70;
     nCorrectors         3;
 	
