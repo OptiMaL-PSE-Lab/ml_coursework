@@ -66,7 +66,6 @@ functions
     type scalarTransport;
     libs ("libsolverFunctionObjects.so");
       enabled true;
-      writeControl outputTime;
       log yes;
       nCorr 1;
       D 1e-10;
