@@ -4,6 +4,9 @@ FROM trsav/openfoam_swak4foam
 RUN pip install --no-cache --upgrade pip && \
     pip install --no-cache notebook jupyterlab
 
+RUN groupmod -g 1001 node \
+  && usermod -u 1001 -g 1001 node
+  
 # create user with a home directory
 ARG NB_USER
 ARG NB_UID
