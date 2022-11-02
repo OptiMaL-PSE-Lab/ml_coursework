@@ -1,6 +1,6 @@
 <a href="https://www.imperial.ac.uk/optimisation-and-machine-learning-for-process-engineering/about-us/">
 <img src="https://avatars.githubusercontent.com/u/81195336?s=200&v=4" alt="Optimal PSE logo" title="OptimalPSE" align="right" height="100" />
-<img src="https://pbs.twimg.com/profile_images/1567930509216333832/xZFkMsnp_400x400.jpg" alt="Matar Group Logo" title="MatarGroup" align="right" height="100" />
+<img src="https://pbs.twimg.com/profile_images/1571965296663044098/FoCpTXVg_400x400.jpg" alt="Matar Group Logo" title="MatarGroup" align="right" height="100" />
 </a>
 
 
