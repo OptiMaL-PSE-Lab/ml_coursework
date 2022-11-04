@@ -15,4 +15,7 @@ WORKDIR ${HOME}
 USER ${USER}
 
 COPY . ${HOME}
-USER ${NB_USER}
+
+USER root
+ RUN chown -R ${NB_UID} ${HOME}
+ USER ${NB_USER}
