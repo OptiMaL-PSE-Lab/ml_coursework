@@ -9,3 +9,5 @@
 
  
 [Click here for instructions](ml_course_documentation-2.pdf)
+
+**Maximum iterations is 30, you are maximising!** 
