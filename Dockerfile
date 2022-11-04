@@ -1,8 +1,8 @@
 FROM trsav/openfoam_swak4foam:latest
 
 # install the notebook package
-#RUN pip install --no-cache --upgrade pip && \
-    # pip install --no-cache notebook jupyterlab
+RUN pip install --no-cache --upgrade pip && \
+    pip install --no-cache notebook jupyterlab
   
 # create user with a home directory
 ARG NB_USER
@@ -16,6 +16,6 @@ USER ${USER}
 
 COPY . ${HOME}
 
-#USER root
-#RUN chown -R ${NB_UID} ${HOME}
+USER root
+RUN chown -R ${NB_UID} ${HOME}
 USER ${NB_USER}
