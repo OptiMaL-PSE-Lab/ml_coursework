@@ -15,4 +15,4 @@ WORKDIR ${HOME}
 USER ${USER}
 
 COPY . ${HOME}
-USER root
+USER ${NB_USER}
