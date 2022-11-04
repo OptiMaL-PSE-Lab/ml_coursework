@@ -7,4 +7,4 @@ RUN pip install --no-cache --upgrade pip && \
 
  # Copy contents of repo to home
  COPY . ${HOME}
- USER root
+
