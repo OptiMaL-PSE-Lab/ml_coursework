@@ -1,5 +1,4 @@
-# FROM trsav/openfoam_swak4foam
-FROM trsav/ml_coursework_final
+FROM trsav/openfoam_swak4foam
 
 # install the notebook package
 RUN pip install --no-cache --upgrade pip && \
