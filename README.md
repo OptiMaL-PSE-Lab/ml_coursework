@@ -8,6 +8,11 @@
  [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
  
-[Click here for instructions](ml_course_documentation-2.pdf)
+[Click here for setup instructions](ml_course_documentation-2.pdf)
 
-**Maximum iterations is 30, you are maximising!** 
+### Rules
+
+- Maximise the function.
+- Maximum function evaluations: 30.
+- Only use the packages provided (numpy, scipy, GPy)
+ - For example, do not use a pre-existing Bayesian optimisation solver.
